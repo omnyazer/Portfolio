@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Omnya Zerghouni | Développeuse Web</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['Space Mono', 'monospace'],
+            sans: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            retro: {
+              pink: '#ff99c8',     
+              pinkdark: '#fca3cc',
+              purple: '#b19cd9',   
+              orange: '#ffbfae',   
+              yellow: '#fcf6bd',
+              blue: '#a0c4ff',
+              bg: '#e8dff5',       
+              dark: '#000000',
+              text: '#1a1a1a'
+            }
+          },
+          boxShadow: {
+            'retro': '6px 6px 0px 0px rgba(0,0,0,1)',
+            'retro-sm': '3px 3px 0px 0px rgba(0,0,0,1)',
+            'retro-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
+            'retro-pressed': 'inset 3px 3px 0px 0px rgba(0,0,0,1)'
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out forwards',
+            'modal-in': 'modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'modal-out': 'modalOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+          },
+          keyframes: {
+            fadeIn: {
+              'from': { opacity: '0', transform: 'translateY(20px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            modalIn: {
+                'from': { opacity: '0', transform: 'scale(0.95) translateY(10px)' },
+                'to': { opacity: '1', transform: 'scale(1) translateY(0)' }
+            },
+            modalOut: {
+                'from': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                'to': { opacity: '0', transform: 'scale(0.95) translateY(10px)' }
+            }
+          }
+        }
+      }
+    }
+</script>
+
+<style>
+    /* ----- CURSEURS RÉTRO ----- */
+    * {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 2l12 11h-5l4 7-2 1-4-7-3 4V2z' fill='%23fff' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), auto;
+    }
+    a, button, [onclick], .cursor-pointer, .window-btn, .nav-item {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%23000' stroke-width='1.5' fill='%23fff'%3E%3Cpath d='M8 12V3.5C8 2.7 8.7 2 9.5 2S11 2.7 11 3.5V11' /%3E%3Cpath d='M11 11V5.5C11 4.7 11.7 4 12.5 4S14 4.7 14 5.5V11' /%3E%3Cpath d='M14 11V7.5C14 6.7 14.7 6 15.5 6S17 6.7 17 7.5V12' /%3E%3Cpath d='M17 12V9.5C17 8.7 17.7 8 18.5 8S20 8.7 20 9.5V16c0 3.3-2.7 6-6 6h-3c-2.8 0-5-2.2-5-5V11.5L4.7 10C4.3 9.7 4.3 9 4.7 8.7s1-.3 1.4 0L8 10v2' /%3E%3C/g%3E%3C/svg%3E") 8 2, pointer !important;
+    }
+
+    body {
+        /* Fond beige et jaune doux / neutre */
+        background-color: #f4eee0; 
+        background-image: 
+            radial-gradient(at 40% 20%, #fdf5c9 0px, transparent 50%), 
+            radial-gradient(at 80% 0%, #fae8c8 0px, transparent 50%),  
+            radial-gradient(at 0% 50%, #fcf4d9 0px, transparent 50%);  
+        background-attachment: fixed;
+    }
+    
+    /* Damier réservé à l'accueil */
+    .bg-checker-retro {
+        background-color: #ffd1dc;
+        background-image: 
+            linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
+            linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+    }
+
+    /* Fond quadrillé doux BEIGE pour la modale */
+    .bg-retro-grid {
+        background-color: #fdf6e3; 
+        background-image: 
+            linear-gradient(rgba(177, 156, 217, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(177, 156, 217, 0.4) 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-position: center center;
+    }
+
+    /* Nouveau Fond quadrillé VIOLET pour la photo "A propos" */
+    .bg-retro-grid-purple {
+        background-color: #e8dff5; /* Violet très pastel */
+        background-image: 
+            linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-position: center center;
+    }
+
+    .window {
+        background-color: white;
+        border: 4px solid black;
+        box-shadow: 8px 8px 0px 0px black;
+    }
+    .window-header {
+        border-bottom: 4px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+    }
+    .window-btn {
+        border: 3px solid black;
+        background: white;
+        height: 24px;
+        width: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        box-shadow: 2px 2px 0px 0px black;
+    }
+    .window-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: none;
+    }
+
+    .btn-retro {
+        border: 4px solid black;
+        box-shadow: 4px 4px 0px 0px black;
+        font-family: 'Space Mono', monospace;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.1s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-retro:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0px 0px black;
+    }
+
+    .progress-bar-retro {
+        border: 4px solid black;
+        background: white;
+        padding: 2px;
+        height: 2rem;
+        width: 100%;
+        box-shadow: 4px 4px 0px 0px black;
+    }
+    .progress-fill-retro {
+        height: 100%;
+        background-color: #b19cd9;
+        border-right: 4px solid black;
+    }
+
+    .nav-item.active .dot-box {
+        background-color: #ff99c8; 
+        box-shadow: inset 3px 3px 0px 0px rgba(0,0,0,1); 
+    }
+    .nav-item.active span.nav-label {
+        opacity: 1 !important;
+        transform: translateX(0);
+    }
+    .nav-item:hover span.nav-label {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    body.modal-open {
+        overflow: hidden;
+    }
+
+    /* Mode démo mobile pour la modale projet */
+    #modalContent.video-mode .project-layout {
+        display: flex;
+        flex-direction: column;
+    }
+    #modalContent.video-mode .project-main {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(300px, 420px) 1fr;
+        align-items: stretch;
+        border-right: 0;
+        border-bottom: 4px solid black;
+    }
+    #modalContent.video-mode .project-side {
+        width: 100%;
+    }
+    #modalContent.video-mode .project-media-wrap {
+        width: fit-content;
+        max-width: none;
+        transform: rotate(0deg);
+        padding: 0;
+        background: transparent;
+    }
+    #modalContent.video-mode #modalVideo {
+        width: auto;
+        max-width: 100%;
+        height: 72vh;
+        max-height: 72vh;
+        object-fit: contain;
+        background: transparent;
+        display: block;
+    }
+    #modalContent.video-mode .project-info-section {
+        border-left: 4px solid black;
+    }
+    #modalContent.video-mode .project-media-section {
+        border-bottom: 0;
+        border-right: 4px solid black;
+    }
+    #modalContent.video-mode .project-side {
+        display: grid;
+        grid-template-columns: 1fr 240px;
+        grid-template-areas:
+            "title cta"
+            "tech cta";
+        gap: 1rem 1.5rem;
+        align-items: start;
+    }
+    #modalContent.video-mode .project-side h5 {
+        grid-area: title;
+        margin-bottom: 0.25rem;
+    }
+    #modalContent.video-mode #modalTechs {
+        grid-area: tech;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 0;
+    }
+    #modalContent.video-mode .project-link-wrap {
+        grid-area: cta;
+        margin-top: 0;
+        align-self: center;
+        min-width: 220px;
+        display: flex;
+    }
+    #modalContent.video-mode #modalLink {
+        width: 100%;
+        min-height: 86px;
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+    }
+    @media (max-width: 1023px) {
+        #modalContent.video-mode .project-main {
+            grid-template-columns: 1fr;
+        }
+        #modalContent.video-mode .project-media-wrap {
+            max-width: 100%;
+        }
+        #modalContent.video-mode #modalVideo {
+            height: min(70vh, 760px);
+            width: auto;
+            max-width: 100%;
+        }
+        #modalContent.video-mode .project-info-section {
+            border-left: 0;
+            border-top: 4px solid black;
+        }
+        #modalContent.video-mode .project-media-section {
+            border-right: 0;
+            border-bottom: 4px solid black;
+        }
+        #modalContent.video-mode .project-side {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+                "title"
+                "tech"
+                "cta";
+            gap: 1rem;
+        }
+        #modalContent.video-mode #modalTechs {
+            grid-template-columns: 1fr;
+        }
+        #modalContent.video-mode #modalLink {
+            min-height: 72px;
+            font-size: 1rem;
+        }
+    }
+</style>
+</head>
+<body class="text-retro-text font-sans antialiased selection:bg-retro-pink selection:text-black relative">
+
+<!-- BEGIN: Vertical Navigation Menu Rétro -->
+<nav class="fixed right-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4 font-mono font-bold uppercase text-xs" data-purpose="vertical-nav">
+    <a class="nav-item group relative flex items-center justify-end active" href="#hero">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Accueil</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+    <a class="nav-item group relative flex items-center justify-end" href="#about">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Profil</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+    <a class="nav-item group relative flex items-center justify-end" href="#career">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Parcours</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+    <a class="nav-item group relative flex items-center justify-end" href="#skills">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Compétences</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+    <a class="nav-item group relative flex items-center justify-end" href="#projects">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Projets</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+    <a class="nav-item group relative flex items-center justify-end" href="#contact">
+        <span class="nav-label opacity-0 translate-x-2 transition-all duration-300 mr-4 bg-white border-2 border-black px-2 py-1 shadow-retro-sm text-black">Contact</span>
+        <div class="dot-box w-6 h-6 border-2 border-black bg-white flex items-center justify-center shadow-retro-sm transition-colors duration-300"></div>
+    </a>
+</nav>
+<!-- END: Vertical Navigation Menu -->
+
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 z-50 w-full bg-white border-b-4 border-black font-mono text-sm shadow-md" data-purpose="site-header">
+  <nav class="container mx-auto px-4 flex justify-between items-center h-12">
+    <div class="flex space-x-6 items-center">
+        <!-- Logo / Start Menu -->
+        <span class="font-extrabold text-lg flex items-center gap-2 bg-retro-purple px-3 py-1 border-2 border-black shadow-[2px_2px_0_0_#000]">
+            <span class="material-symbols-outlined text-black">computer</span>
+            OMNYA_OS
+        </span>
+        <!-- Menu Items -->
+        <div class="hidden md:flex space-x-2 font-bold uppercase">
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#hero">Accueil</a>
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#about">Profil</a>
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#career">Parcours</a>
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#skills">Compétences</a>
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#projects">Projets</a>
+            <a class="hover:bg-black hover:text-white px-2 py-1 transition-colors" href="#contact">Contact</a>
+        </div>
+    </div>
+    
+    <!-- Zone encadrée pour le % et la batterie -->
+    <div class="flex items-center gap-2 font-extrabold bg-retro-yellow px-3 py-1 border-2 border-black shadow-[2px_2px_0_0_#000]">
+        <span id="scrollPercentage" class="w-8 text-right">0%</span>
+        
+        <div class="flex items-center">
+            <div class="w-8 h-4 border-2 border-black bg-white relative overflow-hidden flex items-center p-[1px]">
+                <div id="batteryFill" class="h-full transition-all duration-150" style="width: 0%; background-color: #ef4444;"></div>
+            </div>
+            <div class="w-[3px] h-2 bg-black"></div>
+        </div>
+    </div>
+  </nav>
+</header>
+<!-- END: MainHeader -->
+
+<main class="pt-20">
+<!-- BEGIN: HeroSection -->
+<section class="min-h-screen flex items-center justify-center px-4 relative z-10" id="hero">
+    <div class="relative w-full max-w-4xl animate-fade-in mx-auto mt-10">
+        <div class="hidden md:block absolute -right-6 -bottom-6 w-full h-full bg-checker-retro border-4 border-black shadow-retro z-0"></div>
+        
+        <div class="window relative z-10 flex flex-col">
+            <div class="window-header bg-retro-purple text-black flex-wrap">
+                <div class="flex items-center gap-2 truncate pr-2">
+                    <span class="material-symbols-outlined text-base">terminal</span>
+                    <span class="truncate">C:\Users\Omnya\Portfolio.exe</span>
+                </div>
+                <div class="flex gap-1 shrink-0 mt-2 sm:mt-0">
+                    <button class="window-btn hover:bg-gray-200">_</button>
+                    <button class="window-btn hover:bg-gray-200">□</button>
+                    <button class="window-btn bg-retro-pink hover:bg-red-400">×</button>
+                </div>
+            </div>
+            
+            <div class="p-4 sm:p-8 md:p-16 bg-white relative text-center border-b-4 border-retro-pink">
+                
+             <h1 class="text-3xl min-[400px]:text-4xl sm:text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter drop-shadow-[3px_3px_0_#ff99c8] md:drop-shadow-[4px_4px_0_#ff99c8] w-full break-words">
+                Omnya <br class="md:hidden"/> Zerghouni
+            </h1>
+
+                
+                <h2 class="text-xs sm:text-sm md:text-2xl font-mono font-bold bg-black text-white inline-block px-3 py-2 mb-8 break-all max-w-full">
+                    > DÉVELOPPEUSE_WEB_EN_ALTERNANCE_
+                </h2>
+                
+                <p class="text-base md:text-xl font-medium max-w-2xl mx-auto mb-10 text-left border-l-4 border-retro-purple pl-4 bg-gray-50 p-4 shadow-[4px_4px_0_0_#000] border-t-4 border-r-4 border-b-4">
+                    Étudiante en 4ème année informatique à Cloud Campus, passionnée par le développement web et le design, je recherche une alternance (rythme 3 sem/1 sem) pour poursuivre vers un Bac+5.
+                </p>
+                
+                <!-- Boutons en colonne sur mobile (flex-col) puis en ligne sur tablette (sm:flex-row) -->
+                <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mt-8">
+                    <a href="#projects" class="btn-retro bg-retro-orange text-black px-6 py-3 hover:bg-white text-sm sm:text-base w-full sm:w-auto">
+                        <span class="material-symbols-outlined mr-2">folder_open</span> Projets
+                    </a>
+                    <a href="#about" class="btn-retro bg-retro-blue text-black px-6 py-3 hover:bg-white text-sm sm:text-base w-full sm:w-auto">
+                        <span class="material-symbols-outlined mr-2">description</span> Mon_Profil.txt
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-gray-200 border-t-4 border-black px-4 py-1 font-mono text-[10px] sm:text-xs font-bold flex justify-between">
+                <span>1 profile selected</span>
+                <span>24.0 KB</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END: HeroSection -->
+
+
+<!-- BEGIN: AboutSection -->
+<section class="py-24 relative z-10" id="about">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="window grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+            
+            <div class="border-b-4 md:border-b-0 md:border-r-4 border-black bg-retro-grid-purple p-8 flex flex-col items-center justify-center relative overflow-hidden">
+                <div class="window w-full max-w-sm relative z-10 transform -rotate-3 hover:rotate-0 transition-transform duration-300 group">
+                    <div class="window-header bg-retro-pink">
+                        <span>Développeuse.jpg</span>
+                    </div>
+                    <div class="relative border-b-4 border-black overflow-hidden">
+                        <img alt="Omnya Zerghouni" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-0" src="./Images/portfolioImage2.png"/>
+                        <img alt="Omnya Zerghouni au survol" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100" src="./Images/portfolioImage3.png"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-8 md:p-12 bg-white flex flex-col justify-center">
+                <h3 class="text-4xl font-black uppercase mb-8 drop-shadow-[3px_3px_0_#b19cd9] font-mono">Mon Profil</h3>
+                <p class="text-lg mb-8 font-medium border-4 border-black p-4 bg-retro-yellow shadow-retro-sm">
+                    Forte de 2 ans d'expérience professionnelle en alternance, j'ai eu l'opportunité de concevoir des interfaces React modernes et de développer des API Laravel alliant logique métier, performance et qualité de code.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 font-mono font-bold text-sm uppercase">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border-2 border-black bg-retro-pink shadow-retro-sm flex items-center justify-center">
+                            <span class="material-symbols-outlined">work_history</span>
+                        </div>
+                        <div>2 ans d'expérience</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border-2 border-black bg-retro-blue shadow-retro-sm flex items-center justify-center">
+                            <span class="material-symbols-outlined">location_on</span>
+                        </div>
+                        <div>Paris, France</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border-2 border-black bg-retro-purple shadow-retro-sm flex items-center justify-center">
+                            <span class="material-symbols-outlined">school</span>
+                        </div>
+                        <div>Cloud Campus (Bac+4)</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border-2 border-black bg-retro-orange shadow-retro-sm flex items-center justify-center">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </div>
+                        <div>Rythme: 3 sem / 1 sem</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- END: AboutSection -->
+
+<!-- BEGIN: CareerSection -->
+<section class="py-24 relative z-10" id="career">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h3 class="text-4xl font-black uppercase text-center mb-16 drop-shadow-[4px_4px_0_#fff] font-mono">Mon Parcours</h3>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Colonne 1 : Études -->
+            <div class="window flex flex-col">
+                <div class="window-header bg-retro-pink">
+                    <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">school</span> Formations.exe</span>
+                </div>
+                <div class="p-6 md:p-8 bg-white flex-grow space-y-6">
+                    
+                    <div class="border-l-4 border-retro-pink pl-4">
+                        <div class="font-mono font-bold text-sm bg-black text-white inline-block px-2 py-1 mb-2">2024-2026</div>
+                        <h4 class="text-xl font-bold uppercase mb-1">Bachelor 3 & 4</h4>
+                        <p class="font-medium text-gray-700">Cloud Campus - Informatique & Développement</p>
+                    </div>
+
+                    <div class="border-l-4 border-retro-purple pl-4">
+                        <div class="font-mono font-bold text-sm bg-black text-white inline-block px-2 py-1 mb-2">2022-2024</div>
+                        <h4 class="text-xl font-bold uppercase mb-1">Bachelor 2</h4>
+                        <p class="font-medium text-gray-700">ETNA (Paris-Ivry) - Chargé de Projets Informatiques</p>
+                    </div>
+
+                    <div class="border-l-4 border-retro-blue pl-4">
+                        <div class="font-mono font-bold text-sm bg-black text-white inline-block px-2 py-1 mb-2">2021-2022</div>
+                        <h4 class="text-xl font-bold uppercase mb-1">Licence 1</h4>
+                        <p class="font-medium text-gray-700">Université Sorbonne Paris Nord - Économie et Gestion (Accès Santé)</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Colonne 2 : Expériences pro -->
+            <div class="window flex flex-col">
+                <div class="window-header bg-retro-orange">
+                    <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">work</span> Experiences.exe</span>
+                </div>
+                <div class="p-6 md:p-8 bg-white flex-grow space-y-6">
+                    <h4 class="text-2xl font-black uppercase border-b-4 border-black pb-3 font-mono">
+                        Expériences Professionnelles
+                    </h4>
+                    
+                    <div onclick="openExperienceModal(1)" onkeydown="handleExperienceKeydown(event, 1)" role="button" tabindex="0" class="border-2 border-black p-4 shadow-retro-sm bg-retro-yellow hover:-translate-y-1 transition-transform cursor-pointer">
+                        <div class="flex items-start justify-between gap-3 border-b-2 border-black pb-2 mb-3">
+                            <h4 class="text-lg font-bold uppercase">Développeuse Web Full Stack</h4>
+                            <span class="material-symbols-outlined text-base">open_in_new</span>
+                        </div>
+                        <p class="font-bold text-sm font-mono mb-2">• Institut Adios</p>
+                        <ul class="text-sm space-y-2 font-medium">
+                            <li>- Alternance de septembre 2024 à février 2026.</li>
+                            <li>- Maintenance de l'interface React pour la prise de rendez-vous.</li>
+                            <li>- Création de landing pages WordPress et sites vitrines (HTML/CSS/JS), plus filtres WordPress en PHP.</li>
+                        </ul>
+                        <p class="font-mono font-bold text-xs mt-3 uppercase">Cliquer pour voir le détail des missions</p>
+                    </div>
+
+                    <div onclick="openExperienceModal(2)" onkeydown="handleExperienceKeydown(event, 2)" role="button" tabindex="0" class="border-2 border-black p-4 shadow-retro-sm bg-retro-bg hover:-translate-y-1 transition-transform cursor-pointer">
+                        <div class="flex items-start justify-between gap-3 border-b-2 border-black pb-2 mb-3">
+                            <h4 class="text-lg font-bold uppercase">Développeuse Web</h4>
+                            <span class="material-symbols-outlined text-base">open_in_new</span>
+                        </div>
+                        <p class="font-bold text-sm font-mono mb-2">• IT Conception</p>
+                        <ul class="text-sm space-y-2 font-medium">
+                            <li>- Développement front-end React d'un site d'offres d'emploi pour le RSA.</li>
+                            <li>- Réalisation en freelance d'un simulateur de trésorerie pour Faktus (agence immobilière).</li>
+                            <li>- Création d'affiches publicitaires web en JavaScript et Tailwind pour une agence de vacances.</li>
+                        </ul>
+                        <p class="font-mono font-bold text-xs mt-3 uppercase">Cliquer pour voir le détail des missions</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- END: CareerSection -->
+
+<!-- BEGIN: SkillsSection -->
+<section class="py-24 relative z-10" id="skills">
+    <div class="container mx-auto px-4">
+        <div class="window max-w-5xl mx-auto">
+            <div class="window-header bg-retro-blue">
+                <span>System_Properties > Compétences Techniques</span>
+            </div>
+            
+            <div class="p-8 md:p-12 bg-white">
+                <h3 class="text-4xl font-black uppercase text-center mb-12 drop-shadow-[3px_3px_0_#a0c4ff] font-mono">Compétences Techniques</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    
+                    <!-- FRONTEND -->
+                    <div class="space-y-5">
+                        <h4 class="text-xl font-black uppercase flex items-center gap-2 mb-6 font-mono border-b-2 border-gray-200 pb-2">
+                            <span class="material-symbols-outlined text-retro-pink">brush</span> Frontend
+                        </h4>
+                        
+                        <!-- HTML -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="w-6 h-6" alt="HTML5" /> HTML
+                                </span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- CSS -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="w-6 h-6" alt="CSS3" /> CSS
+                                </span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tailwind CSS -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-6 h-6" alt="Tailwind" /> Tailwind CSS
+                                </span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- JavaScript -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="w-6 h-6" alt="JavaScript" /> JavaScript
+                                </span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 85%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- React -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" class="w-6 h-6" alt="React" /> React
+                                </span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- MUI -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/materialui/materialui-original.svg" class="w-6 h-6" alt="MUI" /> MUI
+                                </span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-pink" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BACKEND & BDD -->
+                    <div class="space-y-5">
+                        <h4 class="text-xl font-black uppercase flex items-center gap-2 mb-6 font-mono border-b-2 border-gray-200 pb-2">
+                            <span class="material-symbols-outlined text-retro-purple">terminal</span> Backend & BDD
+                        </h4>
+                        
+                        <!-- PHP -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="w-6 h-6" alt="PHP" /> PHP
+                                </span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-purple" style="width: 85%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Laravel -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-6 h-6" alt="Laravel" /> Laravel
+                                </span>
+                                <span>82%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-purple" style="width: 82%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- MySQL -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="w-6 h-6" alt="MySQL" /> MySQL
+                                </span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-purple" style="width: 75%;"></div>
+                            </div>
+                        </div>
+
+                                <!-- MAMP -->
+        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+            <div class="flex justify-between items-center">
+                <span class="flex items-center gap-3">
+                    <!-- Lien direct vers le vrai logo officiel de MAMP (l'éléphant) -->
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mamp.svg" class="w-6 h-6" alt="MAMP" /> MAMP
+                </span>
+                <span>75%</span>
+            </div>
+            <div class="progress-bar-retro">
+                <div class="progress-fill-retro bg-retro-purple" style="width: 75%;"></div>
+            </div>
+        </div>
+
+                    </div>
+
+                   
+
+
+                    <!-- DESIGN UI/UX -->
+                    <div class="space-y-5">
+                        <h4 class="text-xl font-black uppercase flex items-center gap-2 mb-6 font-mono border-b-2 border-gray-200 pb-2">
+                            <span class="material-symbols-outlined text-retro-orange">design_services</span> Design UI/UX
+                        </h4>
+                        
+                        <!-- Figma -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" class="w-6 h-6" alt="Figma" /> Figma
+                                </span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-orange" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Canva -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" class="w-6 h-6" alt="Canva" /> Canva
+                                </span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-orange" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OUTILS & OS -->
+                    <div class="space-y-5">
+                        <h4 class="text-xl font-black uppercase flex items-center gap-2 mb-6 font-mono border-b-2 border-gray-200 pb-2">
+                            <span class="material-symbols-outlined text-retro-blue">build</span> Outils & OS
+                        </h4>
+                        
+                        <!-- VSCode -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" class="w-6 h-6" alt="VSCode" /> VSCode
+                                </span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-blue" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- GitHub -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="w-6 h-6" alt="GitHub" /> GitHub
+                                </span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-blue" style="width: 85%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- WordPress -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/wordpress/wordpress-plain.svg" class="w-6 h-6" alt="WordPress" /> WordPress
+                                </span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-blue" style="width: 80%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- MacOS -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" class="w-6 h-6" alt="Mac OS" /> Mac OS
+                                </span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-blue" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <!-- Fin de la window -->
+    </div> <!-- Fin du container -->
+</section>
+<!-- END: SkillsSection -->
+
+<!-- BEGIN: ProjectGallery -->
+<section class="py-24 relative z-10" id="projects">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h3 class="text-4xl font-black uppercase text-center mb-16 drop-shadow-[4px_4px_0_#fff] font-mono">Mes Projets</h3>
+        
+        <div class="flex flex-col gap-8">
+            <!-- PREMIÈRE LIGNE (3 projets) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div onclick="openModal(1)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-retro-pink">
+                        <span class="truncate">Game_App.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                        <img alt="Game App mobile" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/GameApp.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Game App
+                    </div>
+                </div>
+
+                <div onclick="openModal(2)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-retro-blue">
+                        <span class="truncate">App_RDV.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                        <img alt="Système RDV" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/RDV-adios.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Système RDV Adios
+                    </div>
+                </div>
+
+                <div onclick="openModal(3)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-retro-orange">
+                        <span class="truncate">Faktus.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                       <img alt="Simulateur" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/faktus.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Simulateur Faktus
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEUXIÈME LIGNE (2 projets centrés) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full">
+                
+                <div onclick="openModal(4)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-retro-pink">
+                        <span class="truncate">Laravel_API.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                        <img alt="Laravel API e-commerce" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/SwaggerAPI.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Laravel API
+                    </div>
+                </div>
+
+                <div onclick="openModal(5)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-green-300">
+                        <span class="truncate">Quiz_Java.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                        <img alt="Quiz Java console" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/java.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Quiz Java
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- END: ProjectGallery -->
+
+<!-- BEGIN: MainFooter -->
+<footer class="py-24 relative z-10" id="contact">
+    <div class="container mx-auto px-4">
+        <div class="window max-w-4xl mx-auto border-b-[8px] border-r-[8px]">
+            <div class="window-header bg-retro-purple">
+                <span>Contact.exe</span>
+            </div>
+            <div class="p-12 text-center bg-white">
+                <h4 class="text-4xl md:text-5xl font-black mb-6 font-mono uppercase drop-shadow-[3px_3px_0_#ff99c8]">Donnons vie à vos projets</h4>
+                <p class="text-lg font-bold mb-12 max-w-xl mx-auto bg-gray-100 p-4 border-4 border-black shadow-retro-sm">À la recherche d'une développeuse motivée et passionnée ? N'hésitez pas à me contacter !</p>
+                
+                <div class="flex flex-wrap justify-center gap-6 mb-8 font-mono">
+                    <a href="mailto:omnyazer@gmail.com" class="btn-retro bg-retro-yellow px-6 py-3 hover:bg-white text-sm">
+                        <span class="material-symbols-outlined mr-2">mail</span> omnyazer@gmail.com
+                    </a>
+                    <a href="tel:+33662689769" class="btn-retro bg-retro-pink px-6 py-3 hover:bg-white text-sm">
+                        <span class="material-symbols-outlined mr-2">call</span> 06 62 68 97 69
+                    </a>
+                    <a href="#" class="btn-retro bg-retro-blue px-6 py-3 hover:bg-white text-sm">
+                        <span class="material-symbols-outlined mr-2">code</span> GitHub
+                    </a>
+                </div>
+                
+                <div class="pt-8 border-t-4 border-black mt-8 text-sm font-mono font-bold uppercase">
+                    © 2026 Omnya Zerghouni — Rétro OS Edition
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END: MainFooter -->
+
+<!-- BEGIN: Project Modal Overlay -->
+<div id="projectModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 sm:p-6">
+    
+    <div id="modalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 opacity-0 cursor-pointer" onclick="closeModal()"></div>
+    
+    <div id="modalContent" class="window relative w-full max-w-6xl max-h-[95vh] overflow-y-auto z-10 flex flex-col transform shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
+        
+        <div class="window-header bg-retro-pink border-b-4 border-black sticky top-0 z-20">
+            <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">image</span> <span id="modalFileTitle">Aperçu_Projet.exe</span></span>
+            <button onclick="closeModal()" class="window-btn bg-white hover:bg-red-400 text-lg">×</button>
+        </div>
+
+        <div id="projectModalLayout" class="project-layout flex flex-col lg:flex-row bg-white h-full">
+            
+            <div class="project-main w-full lg:w-2/3 flex flex-col border-b-4 lg:border-b-0 lg:border-r-4 border-black">
+                <div class="project-media-section p-6 md:p-8 bg-retro-grid border-b-4 border-black flex justify-center items-center">
+                    <div id="modalMediaWrap" class="project-media-wrap border-4 border-black shadow-[6px_6px_0_0_#000] bg-white p-2 transform -rotate-2 max-w-sm w-full">
+                        <img id="modalImage" alt="Projet" class="w-full h-48 md:h-56 object-cover border-2 border-black" src=""/>
+                        <video id="modalVideo" class="hidden w-full border-2 border-black" autoplay muted loop controls playsinline preload="metadata">
+                            Votre navigateur ne supporte pas la lecture vidéo.
+                        </video>
+                    </div>
+                </div>
+                
+                <div class="project-info-section p-6 md:p-10 bg-white flex-grow">
+                    <h4 id="modalTitle" class="text-3xl md:text-4xl font-black uppercase font-mono mb-4 drop-shadow-[2px_2px_0_#b19cd9]">Titre du projet</h4>
+                    <p id="modalDesc1" class="text-lg font-medium leading-relaxed mb-4">
+                        Description du projet...
+                    </p>
+                    <p id="modalDesc2" class="text-lg font-medium leading-relaxed bg-retro-yellow p-4 border-4 border-black shadow-retro-sm">
+                        Détails supplémentaires...
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-side w-full lg:w-1/3 bg-retro-blue p-6 md:p-8 flex flex-col font-mono">
+                <h5 class="text-xl font-black uppercase mb-8 pb-4 border-b-4 border-black flex items-center gap-2">
+                    <span class="material-symbols-outlined">settings_applications</span>
+                    Fiche Technique
+                </h5>
+                
+                <ul id="modalTechs" class="flex flex-col gap-4 text-lg font-bold mb-12">
+                    <!-- Les technologies seront injectées ici en JS -->
+                </ul>
+
+                <div class="project-link-wrap mt-auto">
+                    <a id="modalLink" href="#" target="_blank" class="btn-retro w-full bg-retro-orange py-4 text-lg hover:bg-white flex items-center justify-center gap-2">
+                        Exécuter_Lien.url <span class="material-symbols-outlined">arrow_outward</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- END: Project Modal Overlay -->
+
+<!-- BEGIN: Career Modal Overlay -->
+<div id="careerModal" class="fixed inset-0 z-[115] hidden items-center justify-center p-4 sm:p-6">
+    <div id="careerModalOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 opacity-0 cursor-pointer" onclick="closeExperienceModal()"></div>
+
+    <div id="careerModalContent" class="window relative w-full max-w-4xl max-h-[95vh] overflow-y-auto z-10 flex flex-col transform shadow-[16px_16px_0_0_rgba(0,0,0,1)]">
+        <div class="window-header bg-retro-orange border-b-4 border-black sticky top-0 z-20">
+            <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-base">work_history</span>
+                <span id="careerModalFileTitle">Experience.exe</span>
+            </span>
+            <button onclick="closeExperienceModal()" class="window-btn bg-white hover:bg-red-400 text-lg">×</button>
+        </div>
+
+        <div class="p-6 md:p-10 bg-white">
+            <div class="mb-6 border-b-4 border-black pb-4">
+                <h4 id="careerModalTitle" class="text-3xl font-black uppercase font-mono mb-2 drop-shadow-[2px_2px_0_#b19cd9]">Titre expérience</h4>
+                <p id="careerModalCompany" class="font-mono font-bold uppercase text-sm">Entreprise</p>
+                <p id="careerModalPeriod" class="font-mono font-bold text-sm mt-2 inline-block bg-retro-yellow border-2 border-black px-2 py-1">Période</p>
+            </div>
+
+            <p id="careerModalIntro" class="text-lg font-medium leading-relaxed mb-6"></p>
+
+            <div class="mb-8">
+                <h5 class="text-xl font-black uppercase mb-4">Réalisations clés</h5>
+                <ul id="careerModalMissions" class="space-y-3 text-base font-medium"></ul>
+            </div>
+
+            <div>
+                <h5 class="text-xl font-black uppercase mb-4">Stack & Méthodes</h5>
+                <ul id="careerModalStack" class="flex flex-wrap gap-3"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Career Modal Overlay -->
+
+<script>
+    // --- GESTION DU POURCENTAGE DE SCROLL ---
+    const scrollPercentageEl = document.getElementById('scrollPercentage');
+    const batteryFill = document.getElementById('batteryFill');
+    const sections = document.querySelectorAll('section, footer');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    function handleScroll() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.offsetHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        const scrollPercentRounded = Math.min(100, Math.max(0, Math.round(scrollPercent)));
+        
+        if (scrollPercentageEl) scrollPercentageEl.innerText = scrollPercentRounded + '%';
+
+        if (batteryFill) {
+            batteryFill.style.width = scrollPercentRounded + '%';
+            if (scrollPercentRounded <= 33) {
+                batteryFill.style.backgroundColor = '#ef4444'; 
+            } else if (scrollPercentRounded <= 66) {
+                batteryFill.style.backgroundColor = '#f59e0b'; 
+            } else {
+                batteryFill.style.backgroundColor = '#22c55e'; 
+            }
+        }
+
+        let current = "";
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollTop >= sectionTop - sectionHeight / 3) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        navItems.forEach((item) => {
+            item.classList.remove("active");
+            if (item.getAttribute("href") && item.getAttribute("href").includes(current)) {
+                item.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('DOMContentLoaded', handleScroll);
+
+    // --- DONNÉES DES PROJETS DU CV ---
+    const projectData = {
+        1: {
+            file: "Game_App.exe",
+            title: "Game App - Higher or Lower",
+            image: "./Images/GameApp.png", 
+            demoVideo: "./Images/game-demo.mp4",
+            videoMode: true,
+            link: "https://github.com/omnyazer/game-app",
+            desc1: "Application mobile/web développée avec Expo et React Native autour d'un mini-jeu Higher or Lower. Le parcours inclut un écran d'accueil, un écran de jeu avec nombre aléatoire et choix higher/lower, puis un écran de résultat (victoire ou défaite).",
+            desc2: "Le projet met l'accent sur l'UX visuelle et l'animation (Lottie + Animated API), avec React Navigation (stack native) et react-native-gesture-handler pour les interactions tactiles. Déploiement et tests simplifiés via Expo. Toute la logique est côté client, sans backend, pour une base front-end simple et maintenable.",
+            techs: [
+                { color: "bg-retro-pink", name: "Expo" },
+                { color: "bg-retro-orange", name: "React Native" },
+                { color: "bg-retro-blue", name: "React Navigation" },
+                { color: "bg-retro-purple", name: "Lottie" }
+            ]
+        },
+        2: {
+            file: "App_RDV.exe",
+            title: "Système de prise de RDV",
+            image: "./Images/RDV-Adios.png",
+            mediaMaxWidth: "30rem",
+            link: "https://rdv.oserlechangement.com/",
+            desc1: "Mission réalisée en tant que développeuse web chez Institut Adios : Développement React d'un système de prise de rendez-vous performant.",
+            desc2: "Création d'une interface utilisateur moderne, fluide et ergonomique, garantissant une gestion optimisée des rendez-vous pour les utilisateurs.",
+            techs: [
+                { color: "bg-retro-pink", name: "React" },
+                { color: "bg-retro-blue", name: "Tailwind CSS" }
+            ]
+        },
+        3: {
+            file: "Faktus.exe",
+            title: "Simulateur de trésorerie",
+            image: "./Images/faktus.png", 
+            mediaMaxWidth: "30rem",
+            link: "https://www.faktus.eu/simulateur?_gl=1*175mn2*_gcl_aw*R0NMLjE3NzMzNDUyNjkuQ2p3S0NBand5TW5OQmhCTkVpd0EtS2NndXpFZjQ1dFlmdkVicjY3Q2tDQXBFeGh3ZUpmRkdZRkFyZUpBRVhZb3J4SjVtajUtNWNrdnRSb0M3SE1RQXZEX0J3RQ..*_gcl_au*MTIyNjQ5NTY4OC4xNzcwNTkyMTM2", 
+            desc1: "Mission chez IT Conception : Création d'outils pour le site web Faktus. Développement d'un simulateur de trésorerie interactif.",
+            desc2: "Conçu avec des composants réutilisables et une intégration de données via API, permettant aux clients de calculer le coût de leur projet et d'identifier la meilleure option.",
+            techs: [
+                { color: "bg-retro-pink", name: "React" },
+                { color: "bg-retro-purple", name: "Intégration API" },
+                { color: "bg-retro-yellow", name: "JavaScript" }
+            ]
+        },
+        4: {
+            file: "Laravel_API.exe",
+            title: "Laravel API - E-commerce Backend",
+            image: "./Images/SwaggerAPI2.png",
+            mediaMaxWidth: "30rem",
+            link: "https://github.com/omnyazer/Back_Laravel_E-commerce.git",
+            desc1: "API e-commerce développée avec Laravel 12 (PHP 8.2). Elle permet à un utilisateur de créer un compte, se connecter avec un token, consulter les produits, ajouter des articles au panier puis valider une commande.",
+            desc2: "Côté logique métier, le panier est converti en commande avec calcul automatique du total et enregistrement de l'historique des articles. Les routes sont sécurisées avec Sanctum et l'API est documentée avec Swagger pour faciliter les tests et l'intégration front-end.",
+            techs: [
+                { color: "bg-retro-blue", name: "Laravel 12" },
+                { color: "bg-retro-orange", name: "PHP" },
+                { color: "bg-retro-pink", name: "Sanctum" },
+                { color: "bg-retro-purple", name: "Eloquent ORM" },
+                { color: "bg-retro-yellow", name: "Swagger" }
+            ]
+        },
+        5: {
+            file: "Quiz_Java.exe",
+            title: "Quiz Java - Application Console",
+            image: "./Images/java.png",
+            demoVideo: "./Images/JavaDemo.mp4",
+            link: "#",
+            desc1: "Application de quiz en Java orientée objet, réalisée sur Eclipse. Le projet est structuré en trois classes: Main (initialisation des questions), Questions (modèle de données) et Quiz (logique d'exécution du jeu).",
+            desc2: "Le quiz affiche chaque question avec ses propositions, récupère la réponse utilisateur, vérifie la réponse, puis calcule un score final. Les questions sont stockées dans un tableau, ce qui rend le contenu simple à faire évoluer et maintenable.",
+            techs: [
+                { color: "bg-retro-orange", name: "Java" },
+                { color: "bg-retro-blue", name: "POO" },
+                { color: "bg-retro-pink", name: "ArrayList" },
+                { color: "bg-retro-yellow", name: "Eclipse" }
+            ]
+        }
+    };
+
+    // --- DONNÉES DES EXPÉRIENCES PROFESSIONNELLES ---
+    const experienceData = {
+        1: {
+            file: "Institut_Adios.exe",
+            title: "Développeuse Web Full Stack",
+            company: "Institut Adios",
+            period: "Septembre 2024 - Février 2026",
+            intro: "Alternance d'un an et demi centrée sur des missions web variées: maintenance produit, création de pages marketing, suivi analytics et développement de fonctionnalités WordPress.",
+            missions: [
+                "Maintenance et évolution de l'interface React de prise de rendez-vous.",
+                "Création de landing pages WordPress en HTML/CSS/JavaScript pour promouvoir les services et formations de l'entreprise.",
+                "Développement de plusieurs sites vitrines en HTML/CSS/JavaScript.",
+                "Mise en place et suivi d'outils de tracking utilisateur (Meta Pixel et Google Analytics).",
+                "Développement de filtres WordPress en PHP pour faciliter la navigation sur l'ensemble des pages du site principal."
+            ],
+            stack: ["React", "WordPress", "HTML/CSS/JS", "PHP", "Meta Pixel", "Google Analytics"]
+        },
+        2: {
+            file: "IT_Conception.exe",
+            title: "Développeuse Web",
+            company: "IT Conception",
+            period: "30/06/2022 - 21/01/2024",
+            intro: "Missions front-end orientées produits métier et communication digitale pour différents clients.",
+            missions: [
+                "Développement front-end en React d'un site d'offres d'emploi destiné au RSA.",
+                "Réalisation d'un simulateur de trésorerie pour Faktus (agence immobilière) dans le cadre d'une mission freelance.",
+                "Création d'affiches publicitaires web en JavaScript et Tailwind pour une agence de vacances."
+            ],
+            stack: ["React", "JavaScript", "Tailwind CSS", "HTML/CSS", "Intégration API"]
+        }
+    };
+
+    // --- GESTION DE LA MODALE ET INJECTION DES DONNÉES ---
+    const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const careerModal = document.getElementById('careerModal');
+    const careerModalContent = document.getElementById('careerModalContent');
+    const careerModalOverlay = document.getElementById('careerModalOverlay');
+    
+    function openModal(projectId) {
+        const data = projectData[projectId];
+        
+        // Injection des textes
+        document.getElementById('modalFileTitle').innerText = data.file;
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalDesc1').innerText = data.desc1;
+        document.getElementById('modalDesc2').innerText = data.desc2;
+        
+        const modalImage = document.getElementById('modalImage');
+        const modalVideo = document.getElementById('modalVideo');
+        const mediaWrap = document.getElementById('modalMediaWrap');
+
+        const useVideoMode = Boolean(data.videoMode);
+
+        if (data.demoVideo) {
+            modalContent.classList.toggle('video-mode', useVideoMode);
+            mediaWrap.classList.toggle('rotate-0', useVideoMode);
+            mediaWrap.classList.toggle('-rotate-2', !useVideoMode);
+            mediaWrap.style.maxWidth = useVideoMode ? '' : '56rem';
+            modalVideo.src = data.demoVideo;
+            modalVideo.classList.remove('hidden');
+            modalImage.classList.add('hidden');
+            modalImage.src = '';
+            modalVideo.play().catch(() => {});
+        } else {
+            modalContent.classList.remove('video-mode');
+            mediaWrap.classList.remove('rotate-0');
+            mediaWrap.classList.add('-rotate-2');
+            mediaWrap.style.maxWidth = data.mediaMaxWidth || '';
+            modalImage.src = data.image;
+            modalImage.classList.remove('hidden');
+            modalVideo.classList.add('hidden');
+            modalVideo.pause();
+            modalVideo.src = '';
+        }
+
+        document.getElementById('modalLink').href = data.link;
+        
+        const techList = document.getElementById('modalTechs');
+        techList.innerHTML = '';
+        data.techs.forEach(tech => {
+            const li = document.createElement('li');
+            li.className = 'flex items-center gap-3 bg-white border-2 border-black p-3 shadow-retro-sm hover:translate-x-1 transition-transform';
+            li.innerHTML = `<div class="w-4 h-4 ${tech.color} border-2 border-black"></div> ${tech.name}`;
+            techList.appendChild(li);
+        });
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('modal-open');
+        
+        modalContent.classList.remove('animate-modal-out');
+        modalContent.classList.add('animate-modal-in');
+        modalOverlay.style.opacity = '1';
+    }
+
+    function closeModal() {
+        const modalVideo = document.getElementById('modalVideo');
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalContent.classList.remove('video-mode');
+
+        modalContent.classList.remove('animate-modal-in');
+        modalContent.classList.add('animate-modal-out');
+        modalOverlay.style.opacity = '0';
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            if (careerModal.classList.contains('hidden')) {
+                document.body.classList.remove('modal-open');
+            }
+        }, 300);
+    }
+
+    function handleExperienceKeydown(event, experienceId) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openExperienceModal(experienceId);
+        }
+    }
+
+    function openExperienceModal(experienceId) {
+        const data = experienceData[experienceId];
+        if (!data) return;
+
+        document.getElementById('careerModalFileTitle').innerText = data.file;
+        document.getElementById('careerModalTitle').innerText = data.title;
+        document.getElementById('careerModalCompany').innerText = data.company;
+        document.getElementById('careerModalPeriod').innerText = data.period;
+        document.getElementById('careerModalIntro').innerText = data.intro;
+
+        const missionList = document.getElementById('careerModalMissions');
+        missionList.innerHTML = '';
+        data.missions.forEach(mission => {
+            const li = document.createElement('li');
+            li.className = 'border-2 border-black p-3 bg-retro-bg';
+            li.innerText = '• ' + mission;
+            missionList.appendChild(li);
+        });
+
+        const stackList = document.getElementById('careerModalStack');
+        stackList.innerHTML = '';
+        data.stack.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'font-mono font-bold uppercase text-xs border-2 border-black bg-retro-blue px-3 py-2 shadow-retro-sm';
+            li.innerText = item;
+            stackList.appendChild(li);
+        });
+
+        careerModal.classList.remove('hidden');
+        careerModal.classList.add('flex');
+        document.body.classList.add('modal-open');
+        careerModalContent.classList.remove('animate-modal-out');
+        careerModalContent.classList.add('animate-modal-in');
+        careerModalOverlay.style.opacity = '1';
+    }
+
+    function closeExperienceModal() {
+        careerModalContent.classList.remove('animate-modal-in');
+        careerModalContent.classList.add('animate-modal-out');
+        careerModalOverlay.style.opacity = '0';
+
+        setTimeout(() => {
+            careerModal.classList.add('hidden');
+            careerModal.classList.remove('flex');
+            if (modal.classList.contains('hidden')) {
+                document.body.classList.remove('modal-open');
+            }
+        }, 300);
+    }
+
+    window.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+        if (event.key === 'Escape' && !careerModal.classList.contains('hidden')) {
+            closeExperienceModal();
+        }
+    });
+</script>
+</body>
+</html>
