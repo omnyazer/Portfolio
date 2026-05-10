@@ -886,14 +886,14 @@
 
                 <div onclick="openModal(5)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
                     <div class="window-header bg-green-300">
-                        <span class="truncate">Quiz_Java.exe</span>
+                        <span class="truncate">SafeLogin.exe</span>
                         <span class="material-symbols-outlined text-sm">open_in_new</span>
                     </div>
                     <div class="p-3 border-b-4 border-black bg-white">
-                        <img alt="Quiz Java console" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/java.png"/>
+                        <img alt="SafeLogin authentification sécurisée" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/SafeLogin.png"/>
                     </div>
                     <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">folder</span> Quiz Java
+                        <span class="material-symbols-outlined">folder</span> SafeLogin
                     </div>
                 </div>
                 
@@ -1138,18 +1138,18 @@
             ]
         },
         5: {
-            file: "Quiz_Java.exe",
-            title: "Quiz Java - Application Console",
-            image: "./Images/java.png",
-            demoVideo: "./Images/JavaDemo.mp4",
-            link: "#",
-            desc1: "Application de quiz en Java orientée objet, réalisée sur Eclipse. Le projet est structuré en trois classes: Main (initialisation des questions), Questions (modèle de données) et Quiz (logique d'exécution du jeu).",
-            desc2: "Le quiz affiche chaque question avec ses propositions, récupère la réponse utilisateur, vérifie la réponse, puis calcule un score final. Les questions sont stockées dans un tableau, ce qui rend le contenu simple à faire évoluer et maintenable.",
+            file: "SafeLogin.exe",
+            title: "SafeLogin - Authentification sécurisée",
+            image: "./Images/SafeLogin.png",
+            link: "https://github.com/omnyazer/safelogin-front",
+            desc1: "Application web d'authentification sécurisée avec un front-end React (Vite, Tailwind CSS, Framer Motion) et un back-end Java Spring Boot exposé en API REST. Le parcours utilisateur couvre l'inscription, la connexion et l'accès à des routes protégées selon le rôle.",
+            desc2: "Côté sécurité, les mots de passe sont hashés avec BCrypt, l'authentification repose sur JWT et l'accès aux endpoints est géré par Spring Security. Le back-end suit une architecture en couches claire (controller/service/repository/dto/entity) avec JPA/Hibernate et MySQL, et le dépôt API est disponible ici : github.com/omnyazer/safelogin-back.",
             techs: [
-                { color: "bg-retro-orange", name: "Java" },
-                { color: "bg-retro-blue", name: "POO" },
-                { color: "bg-retro-pink", name: "ArrayList" },
-                { color: "bg-retro-yellow", name: "Eclipse" }
+                { color: "bg-retro-pink", name: "React + Vite" },
+                { color: "bg-retro-blue", name: "Tailwind CSS" },
+                { color: "bg-retro-yellow", name: "Spring Boot" },
+                { color: "bg-retro-orange", name: "Spring Security + JWT" },
+                { color: "bg-retro-purple", name: "JPA/Hibernate + MySQL" }
             ]
         }
     };
