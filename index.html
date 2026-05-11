@@ -688,6 +688,19 @@
                             </div>
                         </div>
 
+                        <!-- Node.js -->
+                        <div class="space-y-2 font-mono font-bold uppercase text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-3">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="w-6 h-6" alt="Node.js" /> Node.js
+                                </span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar-retro">
+                                <div class="progress-fill-retro bg-retro-purple" style="width: 80%;"></div>
+                            </div>
+                        </div>
+
                         <!-- Java -->
                         <div class="space-y-2 font-mono font-bold uppercase text-sm">
                             <div class="flex justify-between items-center">
@@ -894,8 +907,8 @@
                 </div>
             </div>
 
-            <!-- DEUXIÈME LIGNE (2 projets centrés) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full">
+            <!-- DEUXIÈME LIGNE (3 projets) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <div onclick="openModal(4)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
                     <div class="window-header bg-retro-pink">
@@ -907,6 +920,19 @@
                     </div>
                     <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined">folder</span> Laravel API
+                    </div>
+                </div>
+
+                <div onclick="openModal(6)" class="window cursor-pointer group bg-retro-purple flex flex-col transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#000]">
+                    <div class="window-header bg-retro-blue">
+                        <span class="truncate">Blog_Node.exe</span>
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                    <div class="p-3 border-b-4 border-black bg-white">
+                        <img alt="Blog Node.js et MongoDB" class="w-full h-48 object-cover border-4 border-black grayscale group-hover:grayscale-0 transition-all duration-300" src="./Images/Blog_node.png"/>
+                    </div>
+                    <div class="p-4 bg-retro-yellow font-mono text-center font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">folder</span> Blog Tech&Bots -Node
                     </div>
                 </div>
 
@@ -1176,6 +1202,22 @@
                 { color: "bg-retro-yellow", name: "Spring Boot" },
                 { color: "bg-retro-orange", name: "Spring Security + JWT" },
                 { color: "bg-retro-purple", name: "JPA/Hibernate + MySQL" }
+            ]
+        },
+        6: {
+            file: "Blog_Node.exe",
+            title: "Blog Tech&Bots -Node",
+            image: "./Images/Blog_node.png",
+            mediaMaxWidth: "30rem",
+            link: "https://github.com/omnyazer/Blog-Tech-Bots-Node.git",
+            desc1: "Application web fullstack construite avec Node.js, Express et MongoDB. Elle permet l'inscription/connexion, la publication d'articles, l'édition et la suppression sécurisée par auteur.",
+            desc2: "Le projet inclut un système de likes persistant en base (mise à jour en direct), l'upload d'images pour les posts, ainsi qu'un rendu serveur avec EJS et une interface soignée en Tailwind CSS.",
+            techs: [
+                { color: "bg-retro-blue", name: "Node.js" },
+                { color: "bg-retro-yellow", name: "Express" },
+                { color: "bg-retro-pink", name: "MongoDB" },
+                { color: "bg-retro-purple", name: "Mongoose" },
+                { color: "bg-retro-orange", name: "EJS + Tailwind CSS" }
             ]
         }
     };
